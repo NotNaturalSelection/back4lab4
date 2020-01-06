@@ -19,7 +19,7 @@ public class RegistrationController {
         this.usersService = usersService;
     }
 
-    @PostMapping(value = "registration")
+    @PostMapping(value = "register")
     private void registration(@RequestBody User user) throws UserAlreadyExistsException {
         if(usersService.isUserByUsernameExists(user.getUsername())) {
             throw new UserAlreadyExistsException();

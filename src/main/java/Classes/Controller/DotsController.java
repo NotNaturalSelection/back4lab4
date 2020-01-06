@@ -21,7 +21,8 @@ public class DotsController {
 
     @GetMapping
     List<Dot> getDots(){
-        return dotsService.getDots();
+        List<Dot> list = dotsService.getDots();
+        return list.subList(list.size() -6, list.size()-1);
     }
 
     @PostMapping

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserAlreadyExistsAdvice {
     @ResponseStatus(HttpStatus.CONFLICT) // 409
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public void handleConflict(){
+    public void handleConflict() {
 
     }
 }

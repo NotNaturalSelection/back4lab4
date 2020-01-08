@@ -23,6 +23,17 @@ public class Dot {
     @Column(name = "is_hit")
     private boolean isHit;
 
+    @Column(name = "owner")
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public Integer getId() {
         return id;
     }

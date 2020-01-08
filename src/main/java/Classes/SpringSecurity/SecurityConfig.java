@@ -44,25 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder)
                 .usersByUsernameQuery("select username, password from users where username=?");
-
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(corsFilter, SessionManagementFilter.class);
-        http
+                .cors().and()
+                .addFilterBefore(corsFilter, SessionManagementFilter.class)
+                .authorizeRequests().antMatchers("/register").permitAll()
+                .antMatchers(HttpMethod.OPTIONS).permitAll().and()
+                .authorizeRequests().anyRequest().fullyAuthenticated().and()
+                .httpBasic().and()
                 .csrf().disable();
-        http
-                .authorizeRequests().antMatchers("/register").permitAll();
-        http
-                .authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll();
-//        http
-//                .authorizeRequests().antMatchers("/users/*", "/users").denyAll();
-        http
-                .authorizeRequests().anyRequest().fullyAuthenticated();
-        http
-                .httpBasic();
     }
 
     @Bean

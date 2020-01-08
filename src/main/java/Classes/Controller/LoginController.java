@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "login",method = RequestMethod.POST)
+@RequestMapping(name = "login", method = RequestMethod.POST)
 public class LoginController {
-    @PostMapping(value = "")
-    void logIn(){
+    @PostMapping
+    void logIn() {
     }
 }

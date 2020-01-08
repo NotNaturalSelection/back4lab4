@@ -27,8 +27,8 @@ public class UsersService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user =  userRepository.findUserByUsername(username);
-        if(user == null){
+        User user = userRepository.findUserByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException(username);
         }
         HashSet<GrantedAuthority> authorities = new HashSet<>();
@@ -36,13 +36,13 @@ public class UsersService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
-    public void save(User user){
+    public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
-    public boolean isUserByUsernameExists(String username){
-        return userRepository.findUserByUsername(username)!=null;
+    public boolean isUserByUsernameExists(String username) {
+        return userRepository.findUserByUsername(username) != null;
     }
 
 }

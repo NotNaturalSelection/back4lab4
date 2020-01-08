@@ -1,3 +1,4 @@
 package Classes.Controller;
 
-public class UserAlreadyExistsException extends Exception {}
+public class UserAlreadyExistsException extends Exception {
+}

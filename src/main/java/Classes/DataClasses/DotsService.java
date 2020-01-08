@@ -9,7 +9,6 @@ import java.util.List;
 @Service
 public class DotsService {
 
-
     DotRepository dotRepository;
 
     @Autowired
@@ -17,18 +16,18 @@ public class DotsService {
         this.dotRepository = dotRepository;
     }
 
-    public List<Dot> getDots(){
-        return (List<Dot>) dotRepository.findAll();
+    public List<Dot> getDotsByUsername(String username){
+        return dotRepository.findAllByOwner(username);
     }
 
-    public void saveDot(Dot dot){
+    public void saveDot(Dot dot) {
         dot.setHit(isDotHits(dot));
         dotRepository.save(dot);
     }
 
-    public boolean isDotHits(Dot dot){
-        return (dot.getX() * dot.getX() + dot.getY()*dot.getY() <= (dot.getR()/2)* (dot.getR()/2) ||
-                (dot.getX() >=  -dot.getR()/2 && dot.getX() <= 0 && dot.getY() <=0 && dot.getY() >= -dot.getR()) ||
-                (dot.getX() >= 0 && dot.getY() >=0 && dot.getY() + dot.getX() <= dot.getR()/2));
+    public boolean isDotHits(Dot dot) {
+        return (dot.getX() * dot.getX() + dot.getY() * dot.getY() <= (dot.getR() / 2) * (dot.getR() / 2) ||
+                (dot.getX() >= -dot.getR() / 2 && dot.getX() <= 0 && dot.getY() <= 0 && dot.getY() >= -dot.getR()) ||
+                (dot.getX() >= 0 && dot.getY() >= 0 && dot.getY() + dot.getX() <= dot.getR() / 2));
     }
 }

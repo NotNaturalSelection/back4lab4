@@ -1,5 +1,6 @@
 package Classes.DataClasses;
 
+import Classes.Controller.WrongCredentialsException;
 import Classes.SpringRepository.UserRepository;
 import Classes.SpringSecurity.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +37,12 @@ public class UsersService  {
         return userRepository.findUserByUsername(username) != null;
     }
 
+    public boolean isCredentialsValid(String username, String password) {
+        if(isUserByUsernameExists(username)){
+            User user = loadUserByUsername(username);
+            return passwordEncoder.decode(user.getPassword()).equals(password);
+        } else {
+            return false;
+        }
+    }
 }

@@ -2,6 +2,7 @@ package Classes.Controller;
 
 import Classes.DataClasses.Dot;
 import Classes.DataClasses.DotsService;
+import Classes.SpringSecurity.HeaderDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,14 +14,17 @@ public class DotsController {
 
     DotsService dotsService;
 
+    HeaderDecoder headerDecoder;
+
     @Autowired
-    public DotsController(DotsService dotsService) {
+    public DotsController(DotsService dotsService, HeaderDecoder headerDecoder) {
         this.dotsService = dotsService;
+        this.headerDecoder = headerDecoder;
     }
 
     @GetMapping
     List<Dot> getDots(@RequestHeader(value = "Authorization") String credentials) {
-        List<Dot> list = dotsService.getDotsByUsername(decodeLoginFromHeaderBasic64(credentials));
+        List<Dot> list = dotsService.getDotsByUsername(headerDecoder.decodeLoginFromHeaderBasic64(credentials));
         if (list.size() <= 5) {
             return list;
         } else {
@@ -30,14 +34,9 @@ public class DotsController {
 
     @PostMapping
     Dot saveDot(@RequestHeader(value = "Authorization") String credentials, @RequestBody Dot dot) {
-        dot.setOwner(decodeLoginFromHeaderBasic64(credentials));
+        dot.setOwner(headerDecoder.decodeLoginFromHeaderBasic64(credentials));
         dotsService.saveDot(dot);
         return dot;
     }
 
-    private String decodeLoginFromHeaderBasic64(String header){
-        header = header.replace("Basic ", "");
-        header = new String(java.util.Base64.getDecoder().decode(header));
-        return header.split(":")[0];
-    }
 }

@@ -4,11 +4,13 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema = "public", name = "dots")
+@Table(name = "dots")
 public class Dot {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator( name = "jpaSequence", sequenceName = "JPA_SEQUENCE1", allocationSize = 1, initialValue = 1)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "x")

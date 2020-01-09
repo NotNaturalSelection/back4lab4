@@ -1,19 +1,13 @@
 package Classes.DataClasses;
 
 import Classes.SpringRepository.UserRepository;
+import Classes.SpringSecurity.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 
 @Service
-public class UsersService implements UserDetailsService {
+public class UsersService  {
 
     UserRepository userRepository;
 
@@ -25,15 +19,12 @@ public class UsersService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
+    public User loadUserByUsername(String username)  {
+        if(isUserByUsernameExists(username)){
+            return userRepository.findUserByUsername(username);
+        } else {
+            return null;
         }
-        HashSet<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
     public void save(User user) {

@@ -3,12 +3,15 @@ package Classes.DataClasses;
 import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
-@Table(schema = "public", name = "users")
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator( name = "jpaSequence", sequenceName = "JPA_SEQUENCE", allocationSize = 1, initialValue = 1)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "username", unique = true, nullable = false)

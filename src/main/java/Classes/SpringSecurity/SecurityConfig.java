@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.session.SessionManagementFilter;
 
 import javax.sql.DataSource;
 
@@ -26,14 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private PasswordEncoder passwordEncoder;
 
-    private CORSFilter corsFilter;
-
     @Autowired
-    public SecurityConfig(DataSource dataSource, UserDetailsService usersService, PasswordEncoder passwordEncoder, CORSFilter corsFilter) {
+    public SecurityConfig(DataSource dataSource, UserDetailsService usersService, PasswordEncoder passwordEncoder) {
         this.dataSource = dataSource;
         this.usersService = usersService;
         this.passwordEncoder = passwordEncoder;
-        this.corsFilter = corsFilter;
     }
 
     @Override
@@ -49,9 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and()
-                .addFilterBefore(corsFilter, SessionManagementFilter.class)
-                .authorizeRequests().antMatchers("/register").permitAll()
+                .authorizeRequests().antMatchers("/register","/welcome").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll().and()
                 .authorizeRequests().anyRequest().fullyAuthenticated().and()
                 .httpBasic().and()

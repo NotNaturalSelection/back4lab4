@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class DotsService {
 
-    DotRepository dotRepository;
+    private DotRepository dotRepository;
 
     @Autowired
     public DotsService(DotRepository dotRepository) {

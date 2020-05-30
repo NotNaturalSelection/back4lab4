@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsersService  {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder) {

@@ -1,6 +1,7 @@
 package Classes.MBeans;
 
 public interface AreaCalculatorMBean {
-    double getR();
-    void printArea();
+    double getArea();
+    void setArea(double area);
+    double calculateArea(double r);
 }

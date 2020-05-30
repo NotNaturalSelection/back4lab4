@@ -1,9 +1,7 @@
 package Classes.Controller;
 
-import Classes.DataClasses.User;
 import Classes.DataClasses.UsersService;
 import Classes.SpringSecurity.HeaderDecoder;
-import Classes.SpringSecurity.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +9,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "logging", method = RequestMethod.POST)
 public class LoginController {
 
-    UsersService usersService;
+    private UsersService usersService;
 
-    HeaderDecoder headerDecoder;
-
-    PasswordEncoder passwordEncoder;
+    private HeaderDecoder headerDecoder;
 
     @Autowired
-    public LoginController(UsersService usersService, HeaderDecoder headerDecoder, PasswordEncoder passwordEncoder) {
+    public LoginController(UsersService usersService, HeaderDecoder headerDecoder) {
         this.usersService = usersService;
         this.headerDecoder = headerDecoder;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping
     void logIn(@RequestHeader(name = "Authorization") String header) throws WrongCredentialsException {
         String username = headerDecoder.decodeLoginFromHeaderBasic64(header);
         String password = headerDecoder.decodePasswordFromHeaderBasic64(header);
-        if(!usersService.isCredentialsValid(username,password)){
+        if (!usersService.isCredentialsValid(username, password)) {
             throw new WrongCredentialsException();
         }
     }

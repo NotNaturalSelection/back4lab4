@@ -30,8 +30,10 @@ public class DotsService {
                 (dot.getX() >= -dot.getR() / 2 && dot.getX() <= 0 && dot.getY() <= 0 && dot.getY() >= -dot.getR()) ||
                 (dot.getX() >= 0 && dot.getY() >= 0 && dot.getY() + dot.getX() <= dot.getR() / 2));
     }
-
-    public long count(){
+    public int getDotAmount(String username){
+        return dotRepository.findAllByOwner(username).size();
+    }
+    public long getDotAmount(){
         return dotRepository.count();
     }
 

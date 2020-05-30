@@ -23,7 +23,7 @@ public class Dot {
     private double r;
 
     @Column(name = "is_hit")
-    private boolean isHit;
+    private boolean hit;
 
     @Column(name = "owner")
     private String owner;
@@ -69,11 +69,11 @@ public class Dot {
     }
 
     public boolean isHit() {
-        return isHit;
+        return hit;
     }
 
     public void setHit(boolean hit) {
-        isHit = hit;
+        this.hit = hit;
     }
 
     @Override
@@ -84,13 +84,13 @@ public class Dot {
         return Double.compare(dot.x, x) == 0 &&
                 Double.compare(dot.y, y) == 0 &&
                 Double.compare(dot.r, r) == 0 &&
-                isHit == dot.isHit &&
+                hit == dot.hit &&
                 Objects.equals(id, dot.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, x, y, r, isHit);
+        return Objects.hash(id, x, y, r, hit);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class Dot {
                 ", x=" + x +
                 ", y=" + y +
                 ", r=" + r +
-                ", isHit=" + isHit +
+                ", hit=" + hit +
                 '}';
     }
 }

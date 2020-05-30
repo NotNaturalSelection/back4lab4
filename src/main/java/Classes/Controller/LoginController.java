@@ -20,7 +20,7 @@ public class LoginController {
     }
 
     @PostMapping
-    void logIn(@RequestHeader(name = "Authorization") String header) throws WrongCredentialsException {
+    public void logIn(@RequestHeader(name = "Authorization") String header) throws WrongCredentialsException {
         String username = headerDecoder.decodeLoginFromHeaderBasic64(header);
         String password = headerDecoder.decodePasswordFromHeaderBasic64(header);
         if (!usersService.isCredentialsValid(username, password)) {

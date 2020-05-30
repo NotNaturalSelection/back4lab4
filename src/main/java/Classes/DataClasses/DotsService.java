@@ -30,4 +30,16 @@ public class DotsService {
                 (dot.getX() >= -dot.getR() / 2 && dot.getX() <= 0 && dot.getY() <= 0 && dot.getY() >= -dot.getR()) ||
                 (dot.getX() >= 0 && dot.getY() >= 0 && dot.getY() + dot.getX() <= dot.getR() / 2));
     }
+
+    public long count(){
+        return dotRepository.count();
+    }
+
+    public int getHitAmount(){
+        return dotRepository.getAllByHit(true).size();
+    }
+
+    public int getHitAmount(String owner){
+        return dotRepository.getAllByHitTrueAndOwner(owner).size();
+    }
 }

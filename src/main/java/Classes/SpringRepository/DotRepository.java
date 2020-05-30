@@ -9,4 +9,8 @@ import java.util.List;
 @RepositoryRestResource(exported = false)
 public interface DotRepository extends JpaRepository<Dot, Integer> {
     List<Dot> findAllByOwner(String owner);
+
+    List<Dot> getAllByHitTrueAndOwner(String owner);
+
+    List<Dot> getAllByHit(boolean isHit);
 }

@@ -50,8 +50,9 @@ public class DotsController {
         if (usersService.isCredentialsValid(headerDecoder.decodeLoginFromHeaderBasic64(credentials), headerDecoder.decodePasswordFromHeaderBasic64(credentials))) {
             dot.setOwner(headerDecoder.decodeLoginFromHeaderBasic64(credentials));
             dotsService.saveDot(dot);
-            dotCounterMBean.setDotAmount(dotCounterMBean.getDotAmount()+1);
-            if(dot.isHit()) dotCounterMBean.setHitAmount(dotCounterMBean.getHitAmount()+1);
+            dotCounterMBean.setDotAmount(dotCounterMBean.getDotAmount() + 1);
+            if (dot.isHit()) dotCounterMBean.setHitAmount(dotCounterMBean.getHitAmount() + 1);
+            dotCounterMBean.sendTwoMissesNotification(dot.getX(), dot.getY(), dot.getR(), dot.isHit());
             return dot;
         } else {
             return new Dot();

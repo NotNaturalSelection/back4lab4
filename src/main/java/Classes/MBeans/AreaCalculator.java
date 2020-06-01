@@ -8,14 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class AreaCalculator implements AreaCalculatorMBean {
     private double area;
-    public AreaCalculator(){
+
+    public AreaCalculator() {
         this.setArea(calculateArea(1d));
     }
+
     @Override
     @ManagedAttribute
     public double getArea() {
         return this.area;
     }
+
     @ManagedAttribute
     public void setArea(double area) {
         this.area = area;

@@ -16,6 +16,6 @@ public class RadiusController {
 
     @GetMapping("{radius}")
     public void radiusChange(@PathVariable double radius){
-        areaCalculatorMBean.setArea(areaCalculatorMBean.calculateArea(radius));
+        areaCalculatorMBean.calculateArea(radius);
     }
 }

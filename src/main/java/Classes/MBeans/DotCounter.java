@@ -44,19 +44,12 @@ public class DotCounter extends NotificationBroadcasterSupport implements DotCou
         return isLastMissed;
     }
 
-    @ManagedAttribute
-    public void setLastMissed(boolean lastMissed) {
-        isLastMissed = lastMissed;
+    public void increaseHitAmount() {
+        this.hitAmount++;
     }
 
-    @ManagedAttribute
-    public void setHitAmount(int hitAmount) {
-        this.hitAmount = hitAmount;
-    }
-
-    @ManagedAttribute
-    public void setDotAmount(long dotAmount) {
-        this.dotAmount = dotAmount;
+    public void increaseDotAmount() {
+        this.dotAmount++;
     }
 
     @ManagedOperation

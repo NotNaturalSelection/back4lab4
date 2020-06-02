@@ -10,7 +10,7 @@ public class AreaCalculator implements AreaCalculatorMBean {
     private double area;
 
     public AreaCalculator() {
-        this.setArea(calculateArea(1d));
+        this.area=calculateArea(1d);
     }
 
     @Override
@@ -19,15 +19,11 @@ public class AreaCalculator implements AreaCalculatorMBean {
         return this.area;
     }
 
-    @ManagedAttribute
-    public void setArea(double area) {
-        this.area = area;
-    }
-
     public double calculateArea(double r) {
         double triangleArea = 0.5 * Math.pow(0.5 * r, 2);
         double rectangleArea = 0.5 * Math.pow(r, 2);
         double circularSectorArea = Math.PI * Math.pow(r, 2) / 4;
-        return triangleArea + rectangleArea + circularSectorArea;
+        this.area=triangleArea + rectangleArea + circularSectorArea;
+        return this.area;
     }
 }

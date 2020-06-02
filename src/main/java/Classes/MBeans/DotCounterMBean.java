@@ -5,9 +5,9 @@ public interface DotCounterMBean {
 
     int getHitAmount();
 
-    void setDotAmount(long dotAmount);
+    void increaseDotAmount();
 
-    void setHitAmount(int hitAmount);
+    void increaseHitAmount();
 
     int getUserDotAmount(String username);
 
